@@ -13,6 +13,8 @@ module LetterOpener
       location = File.join(settings[:location], "#{Time.now.to_i}_#{Digest::SHA1.hexdigest(mail.encoded)[0..6]}")
       messages = Message.rendered_messages(location, mail)
       Launchy.open("file:///#{URI.parse(URI.escape(messages.first.filepath))}")
+
+      Hashie::Mash.new({success: true})
     end
   end
 end
